@@ -1,24 +1,18 @@
-#define v_aref 3.3
-#define analog_in A0
-
-int analoginput = 0; // our analog pin
-int analogamount = 0; // stores incoming value
-float percentage = 0; // used to store our percentage value
-float voltage =0; // used to store voltage value
-
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  pinMode(A0,INPUT_PULLUP);
-  analogReference(EXTERNAL);
+  pinMode(A0,INPUT);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  double AREF = 3.3;
+  double analogReader = analogRead(A0);
+  delay(500);
   Serial.print("L3, Group 2, ");
-  Serial.print(analog_in);
-  voltage=(analog_in/1023) * v_aref;
+  double voltage=(analogReader/1023)*AREF;
   Serial.print(voltage);
   Serial.println("");
-  delay(500);
+  if(voltage = )
+
 }
