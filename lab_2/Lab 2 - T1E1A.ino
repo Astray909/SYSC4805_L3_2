@@ -8,11 +8,11 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if (digitalRead(2) == 1)
+  if (digitalRead(TRIG_PIN) == 1)
     {
       Serial.println("Group 2 >> (Sensor reading is 1)");
     }
-  else if (digitalRead(2) == 0)
+  else if (digitalRead(TRIG_PIN) == 0)
     {
       Serial.println("Group 2 >> (Sensor reading is 0)");
     }
