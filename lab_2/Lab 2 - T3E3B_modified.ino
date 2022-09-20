@@ -1,5 +1,8 @@
 /*Sample Code to generate the Trigger signal from Arduino Pin 2. And getting the Echo signal to pin A7 in the Arduino.
 */
+volatile uint32_t CaptureCountA;
+volatile boolean CaptureFlag;
+
 void setup() {
   Serial.begin(9600); //Enable Serial connection to report the time 
   //-----------Setting Registers for the Trigger Signal--------------------- 
@@ -27,11 +30,19 @@ void setup() {
                             | TC_CMR_ETRGEDG_RISING; // Trigger on rising edge
                             
   TC0->TC_CHANNEL[1].TC_CCR = TC_CCR_SWTRG | TC_CCR_CLKEN; // Reset TC counter and enable
+  TC0->TC_CHANNEL[1].TC_IER |= TC_IER_LDRAS; // Trigger interrupt on Load RA
+  NVIC_EnableIRQ(TC1_IRQn); // Enable TC1 interrupts
 }
 
 void loop() {
-  volatile uint32_t CaptureCountA;
-  CaptureCountA = TC0->TC_CHANNEL[1].TC_RA;
-  printf("L3, Group2: \r %f cm \n", 340.0*CaptureCountA/(42000000.0)/2*100);
-  delay(500);
+  if (CaptureFlag) {
+  CaptureFlag = 0; //Reset the flag,
+  printf("L3, Group2: \r %f cm \n", 340.0*CaptureCountA/(42000000.0)/2*100);}
+}
+void TC1_Handler() {
+  uint32_t status = TC0->TC_CHANNEL[1].TC_SR; //Read status register, Clear status 
+  if (status & TC_SR_LDRAS) { // If ISR is fired by LDRAS then ....
+    CaptureCountA = TC0->TC_CHANNEL[1].TC_RA; //read TC_RA
+    CaptureFlag = 1; //Inform the main loop of an update. 
+  }
 }
