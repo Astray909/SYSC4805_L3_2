@@ -4,7 +4,8 @@ Using Register level access
 */
 void setup()
 {
-  PMC->PMC_PCER0 |= PMC_PCER0_PID27;//TC0 power ON - Timer Counter 0 channel 0 PIOB->PIO_PDR |= PIO_PDR_P25; // The pin is no more driven by GPIO
+  PMC->PMC_PCER0 |= PMC_PCER0_PID27;//TC0 power ON - Timer Counter 0 channel 0 
+  PIOB->PIO_PDR |= PIO_PDR_P25; // The pin is no more driven by GPIO
   PIOB->PIO_ABSR |= PIO_PB25B_TIOA0;// B Assign B25 to alternative periph_B (TIOA0):
   TC0->TC_CHANNEL[0].TC_CMR = TC_CMR_TCCLKS_TIMER_CLOCK1 //MCK/2 = 42 MHz, 
                             | TC_CMR_WAVE //Waveform mode
