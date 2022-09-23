@@ -51,13 +51,13 @@ void setup()
       while (1);
     }
 
-    sensors[i].setDistanceMode(VL53L1X::Short);
-    sensors[i].setMeasurementTimingBudget(20000);
-
     // Each sensor must have its address changed to a unique value other than
     // the default of 0x29 (except for the last one, which could be left at
     // the default). To make it simple, we'll just count up from 0x2A.
     sensors[i].setAddress(0x2A + i);
+
+    sensors[i].setDistanceMode(VL53L1X::Short);
+    sensors[i].setMeasurementTimingBudget(20000);
 
     sensors[i].startContinuous(50);
   }
