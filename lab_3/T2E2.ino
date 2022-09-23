@@ -51,8 +51,8 @@ void setup()
       while (1);
     }
 
-    sensor.setDistanceMode(VL53L1X::Short);
-    sensor.setMeasurementTimingBudget(20000);
+    sensors[i].setDistanceMode(VL53L1X::Short);
+    sensors[i].setMeasurementTimingBudget(20000);
 
     // Each sensor must have its address changed to a unique value other than
     // the default of 0x29 (except for the last one, which could be left at
