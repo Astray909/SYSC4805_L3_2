@@ -1,7 +1,8 @@
 #include <Wire.h>
 #include <LIS3MDL.h>
 LIS3MDL mag;
-LIS3MDL::vector<float> mag_min, mag_max, current; char report[100];
+LIS3MDL::vector<float> mag_min, mag_max, current; 
+char report[100];
 void setup() 
 {
   Serial.begin(9600); 
@@ -12,7 +13,8 @@ void setup()
     while (1);
   }
   mag.enableDefault();
-  Serial.println("Calibrating for 10 Seconds. Roll, Pitch and Yaw to get high numbers!"); unsigned long myTime = millis();
+  Serial.println("Calibrating for 10 Seconds. Roll, Pitch and Yaw to get high numbers!"); 
+  unsigned long myTime = millis();
   while (millis() < myTime + 10000)
   {
     mag.read();
@@ -31,7 +33,7 @@ void loop() {
   mag.read();
   mag_min.x = min(mag_min.x, mag.m.x); mag_min.y = min(mag_min.y, mag.m.y);
   mag_min.z = min(mag_min.z, mag.m.z); mag_max.x = max(mag_max.x, mag.m.x);
-  mag_mix.y = max(mag_max.y, mag.m.y); mag_max.z = max(mag_max.z, mag.m.z);
+  mag_max.y = max(mag_max.y, mag.m.y); mag_max.z = max(mag_max.z, mag.m.z);
 
   current.x = 2 * ((mag.m.x - mag_min.x) / (mag_max.x - mag_min.x)) - 1;
   current.y = 2 * ((mag.m.y - mag_min.y) / (mag_max.y - mag_min.y)) - 1;
