@@ -18,8 +18,8 @@ void setup() {
   PWM->PWM_CH_NUM[0].PWM_CMR |= PWM_CMR_CPRE_CLKA // Set the clock source as CLKA
                               | PWM_CMR_CPOL; //Set output polarity be high.
 
-  PWM->PWM_CH_NUM[0].PWM_CPRD = 60000-1; //Set PWM freq 1MHz/(60000) = 66.667Hz
-  PWM->PWM_CH_NUM[0].PWM_CDTY = 10-1; // Set PWM duty cycle
+  PWM->PWM_CH_NUM[0].PWM_CPRD = 100000-1; //Set PWM freq 1MHz/(60000) = 16.667Hz
+  PWM->PWM_CH_NUM[0].PWM_CDTY = 20000-1; // Set PWM duty cycle
 
   PWM->PWM_ENA = PWM_ENA_CHID0; // Enable the PWM channel
 
