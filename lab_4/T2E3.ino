@@ -14,12 +14,12 @@ void setup() {
   PIOC->PIO_ABSR |= PIO_PC3B_PWMH0; // Assign C3 to PWM module (Periph_B)
   PIOC->PIO_PDR |= PIO_PDR_P3; // Release C3 from the PIO module
 
-  REG_PWM_CLK = PWM_CLK_PREA(0) | PWM_CLK_DIVA(84);//Set PWM clock 1MHz (Mck/84) 
+  REG_PWM_CLK = PWM_CLK_PREA(0) | PWM_CLK_DIVA(168);//Set PWM clock 1MHz (Mck/168) 
   PWM->PWM_CH_NUM[0].PWM_CMR |= PWM_CMR_CPRE_CLKA // Set the clock source as CLKA
                               | PWM_CMR_CPOL; //Set output polarity be high.
 
-  PWM->PWM_CH_NUM[0].PWM_CPRD = 100000-1; //Set PWM freq 1MHz/(60000) = 16.667Hz
-  PWM->PWM_CH_NUM[0].PWM_CDTY = 20000-1; // Set PWM duty cycle
+  PWM->PWM_CH_NUM[0].PWM_CPRD = 500-1; //Set PWM freq 1MHz/(60000) = 66.667Hz
+  PWM->PWM_CH_NUM[0].PWM_CDTY = 500-1; // Set PWM duty cycle
 
   PWM->PWM_ENA = PWM_ENA_CHID0; // Enable the PWM channel
 
@@ -32,7 +32,7 @@ void loop() {
     CaptureFlag = 0; //Reset the flag,
     // Serial.println(t-t_old); //Print the time in msec,
     speed = 1000*(18.85/((t-t_old)*10));
-    printf("L3, Group2: %f cm/s \n", speed);} //the .0 is required to type casting.
+    printf("L3, Group2: %f cm/s \n", speed); //the .0 is required to type casting.
     t_old = t;
   } 
 }
