@@ -32,7 +32,7 @@ void loop() {
     CaptureFlag = 0; //Reset the flag,
     // Serial.println(t-t_old); //Print the time in msec,
     speed = 1000*(18.85/((t-t_old)*10));
-    Serial.println(speed); //Print the speed
+    printf("L3, Group2: %f cm/s \n", speed);} //the .0 is required to type casting.
     t_old = t;
   } 
 }
