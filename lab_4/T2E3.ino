@@ -1,4 +1,5 @@
 volatile uint32_t CaptureCountA;
+volatile uint32_t speedA;
 volatile boolean CaptureFlag;
 
 /*Sample code to configure the PWM module to generate a PWM signal on pin 35,
@@ -32,12 +33,17 @@ void setup() {
 void loop(){
   if (CaptureFlag) {
   CaptureFlag = 0; //Reset the flag,
+  speedA = (18.85/((CaptureCountA/42000.0)*10))*1000
   printf("L3, Group2: %f msec \n", CaptureCountA/42000.0);} //the .0 is required to type casting.
+  printf(", The speed is : %f cm/s \n", speedA);} //the .0 is required to type casting.
 }
 void TC1_Handler() {
   uint32_t status = TC0->TC_CHANNEL[1].TC_SR; //Read status register, Clear status 
   if (status & TC_SR_LDRAS) { // If ISR is fired by LDRAS then ....
     CaptureCountA = TC0->TC_CHANNEL[1].TC_RA; //read TC_RA
-    CaptureFlag = 1; //Inform the main loop of an update. 
+    if(CaptureCountA > 50)
+    {
+      CaptureFlag = 1; //Inform the main loop of an update.
+    } 
   }
 }
