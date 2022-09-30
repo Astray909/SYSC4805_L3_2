@@ -39,7 +39,7 @@ void TC1_Handler() {
   uint32_t status = TC0->TC_CHANNEL[1].TC_SR; //Read status register, Clear status 
   if (status & TC_SR_LDRAS) { // If ISR is fired by LDRAS then ....
     CaptureCountA = TC0->TC_CHANNEL[1].TC_RA; //read TC_RA
-    if (CaptureFlag > 50)
+    if (CaptureCountA > 50)
     {
       CaptureFlag = 1; //Inform the main loop of an update.
     }
